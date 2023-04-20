@@ -14,7 +14,7 @@ function getPredictions(text) {
         crossDomain: true,
         success: function(res) {
             console.log(res);
-            let res = JSON.parse(data);
+         
             let time = new Date();
             let hour = time.getHours();
             let minute = time.getMinutes();
@@ -22,13 +22,13 @@ function getPredictions(text) {
             var dl_pred = res.dl_pred;
             let outputMsg = "";
 
-            if (ml_pred == "1" && dl_pred == "1") {
+            if (ml_pred == 1 && dl_pred == 1) {
                 outputMsg = "Message is a Terrorism ideation";
-            } else if (ml_pred == "0" && dl_pred == "0") {
+            } else if (ml_pred == 0 && dl_pred == 0) {
                 outputMsg = "Message is not realted to terrorism ideation";
             } else if (
-                (ml_pred == "0" && dl_pred == "1") ||
-                (ml_pred == "1" && dl_pred == "0")
+                (ml_pred == 0 && dl_pred == 1) ||
+                (ml_pred == 1 && dl_pred == 0)
             ) {
                 outputMsg = "Message may be or may not be related terrorism ideation";
             } else {
