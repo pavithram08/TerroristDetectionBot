@@ -40,6 +40,7 @@ def predict():
 
     return jsonify({"status": 422, "message": "Internal Server Error"})
 
+from flask_cors import CORS
 
-if __name__ == '__main__':
-    app.run(debug=True)
+app = Flask(__name__)
+CORS(app)
