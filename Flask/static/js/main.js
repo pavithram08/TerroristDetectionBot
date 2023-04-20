@@ -14,6 +14,7 @@ function getPredictions(text) {
         crossDomain: true,
         success: function(res) {
             console.log(res);
+            let res = JSON.parse(data);
             let time = new Date();
             let hour = time.getHours();
             let minute = time.getMinutes();
