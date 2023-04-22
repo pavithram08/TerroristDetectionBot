@@ -1,7 +1,7 @@
 let time = new Date();
 let hour = time.getHours();
 let minute = time.getMinutes();
-const url = "http://127.0.0.1:5000";
+const url = "https://terrordetectbot.onrender.com";
 $(".set-time").text(`${hour}:${minute}`);
 
 function getPredictions(text) {
