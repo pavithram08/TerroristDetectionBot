@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, render_template, request
+from flask_cors import CORS
 import json
 import preprocess_text
 import tensorflow as tf
@@ -7,7 +8,9 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.models import load_model
 import pickle
 
+
 app = Flask(__name__)
+cors = CORS(app, resources={r"/predict": {"origins": "http://localhost:5000/predict"}})
 
 
 @app.route('/', methods=['GET'])
@@ -16,7 +19,9 @@ def home():
 
 
 @app.route('/predict', methods=['POST'])
+# @cross_origin()
 def predict():
+    print(request.method)
     try:
         tf_idf = pickle.load(open('./Models/tfidf_tokenizer.pkl', 'rb'))
         rf_model = pickle.load(open('./Models/random_forest.pkl', 'rb'))
@@ -27,6 +32,8 @@ def predict():
         vec = tf_idf.transform([new_text])
         ml_pred = rf_model.predict(vec)
         ml_pred = int(ml_pred[0])
+        print(f"ML Prediction: {ml_pred}")
+        print("Data type of ml_pred:", type(ml_pred))
 
        
         return jsonify({"status": 200,"ml_pred": json.dumps(ml_pred)})
@@ -38,3 +45,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

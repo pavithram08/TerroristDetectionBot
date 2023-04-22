@@ -1,7 +1,7 @@
 let time = new Date();
 let hour = time.getHours();
 let minute = time.getMinutes();
-const url = "https://terrordetectbot.onrender.com";
+const url = "http://127.0.0.1:5000";
 $(".set-time").text(`${hour}:${minute}`);
 
 function getPredictions(text) {
@@ -14,24 +14,24 @@ function getPredictions(text) {
         crossDomain: true,
         success: function(res) {
             console.log(res);
-         
+
             let time = new Date();
             let hour = time.getHours();
             let minute = time.getMinutes();
-            var ml_pred = res.ml_pred;
+            var ml_pred = parseInt(res.ml_pred);
             var dl_pred = res.dl_pred;
             let outputMsg = "";
 
-            if (ml_pred == "1") {
+            if (ml_pred == 1) {
                 outputMsg = "Message is a Terrorism ideation";
-            } else if (ml_pred == "0") {
+            } else if (ml_pred == 0) {
                 outputMsg = "Message is not realted to terrorism ideation";
-            
+
             } else {
                 outputMsg = "Sorry,can't figure out!";
             }
 
-      $("#new-res").append(`
+            $("#new-res").append(`
       <div class="msg right-msg">
       <div class="msg-img"
       style="background-image: url(https://cdn-icons-png.flaticon.com/512/163/163847.png)">
